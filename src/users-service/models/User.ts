@@ -14,10 +14,10 @@ export class User {
   @Column({ type: 'varchar', length: 15 })
   mobile: number | undefined;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   panCard: string | undefined;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   aadharCard: string | undefined;
 
   @Column({ type: 'varchar', length: 255 })

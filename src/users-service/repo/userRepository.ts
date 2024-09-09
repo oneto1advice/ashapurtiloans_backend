@@ -36,43 +36,42 @@ export class UserRepository {
         return await this.userRepository.findOneBy({ email });
     }
 
-    async findByEmailAndPassword( jwtToken: string): Promise<any | null> {
-        let existsUser = await this.userRepository.findOneBy({jwtToken});
-        console.log("existsUser", existsUser)
+    async findByEmailAndPassword(jwtToken: string): Promise<any | null> {
+        let existsUser = await this.userRepository.findOneBy({ jwtToken });
         return existsUser !== null ? { statusCode: 200, message: "Login successfully.", status: "success", data: existsUser } : { statusCode: 401, message: "Invalid email or password", status: "failed" };
     }
 
 
-    async UpdateTokenEmailAndPassword(id: number,jwtToken: string): Promise<any | null> {
-        let existsUser = await this.userRepository.update({id: id }, { jwtToken })
-        return existsUser !== null ? { statusCode: 200, message: "Login successfully.", status: "success", data: existsUser } : { statusCode: 401, message: "Invalid email or password", status: "failed" };
+    async UpdateTokenEmailAndPassword(id: number, jwtToken: string): Promise<any | null> {
+        const user = await this.userRepository.findOneBy({ id });
+        console.log("user", user)
+        if (user) {
+            user.jwtToken = jwtToken;
+            await this.userRepository.save(user);
+        }
+        return user !== null ? { statusCode: 200, message: "Login successfully.", status: "success", data: user } : { statusCode: 401, message: "Invalid email or password", status: "failed" };
     }
-    //   private userRepository = AppDataSource.getRepository(user);
 
-    //   async createUser(name: string, email: string): Promise<user> {
-    //     const user = this.userRepository.create({ name, email });
-    //     return await this.userRepository.save(user);
-    //   }
-    //   async findAllUsers(): Promise<User[]> {
-    //     return await this.userRepository.find();
-    //   }
+    async findAllUsers(): Promise<User[]> {
+        return await this.userRepository.find();
+    }
 
-    //   async findUserById(id: number): Promise<User | null> {
-    //     return await this.userRepository.findOneBy({ id });
-    //   }
+    async findUserById(id: number): Promise<User | null> {
+        return await this.userRepository.findOneBy({ id });
+    }
 
-    //   async updateUser(id: number, name: string, email: string): Promise<User | null> {
-    //     const user = await this.userRepository.findOneBy({ id });
-    //     if (user) {
-    //       user.name = name;
-    //       user.email = email;
-    //       return await this.userRepository.save(user);
-    //     }
-    //     return null;
-    //   }
+    async updateUser(id: number, name: string, email: string): Promise<User | null> {
+        const user = await this.userRepository.findOneBy({ id });
+        if (user) {
+            user.fullName = name;
+            user.email = email;
+            return await this.userRepository.save(user);
+        }
+        return null;
+    }
 
-    //   async deleteUser(id: number): Promise<boolean> {
-    //     const result = await this.userRepository.delete(id);
-    //     return result.affected > 0;
-    //   }
+    async deleteUser(id: number): Promise<boolean> {
+        const result = await this.userRepository.delete(id);
+        return (result.affected ?? 0) > 0;
+    }
 }

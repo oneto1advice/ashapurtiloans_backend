@@ -39,26 +39,20 @@ export class UserService {
     }
 
 
+    async getAllUsers() {
+        return this.userRepository.findAllUsers();
+    }
 
+    async getUserById(id: number) {
+        return this.userRepository.findUserById(id);
+    }
 
-    //   async createUser(name: string, email: string) {
-    //     return this.userRepository.createUser(name, email);
-    //   }
+    async updateUser(id: number, name: string, email: string) {
+        return this.userRepository.updateUser(id, name, email);
+    }
 
-    //   async getAllUsers() {
-    //     return this.userRepository.findAllUsers();
-    //   }
-
-    //   async getUserById(id: number) {
-    //     return this.userRepository.findUserById(id);
-    //   }
-
-    //   async updateUser(id: number, name: string, email: string) {
-    //     return this.userRepository.updateUser(id, name, email);
-    //   }
-
-    //   async deleteUser(id: number) {
-    //     return this.userRepository.deleteUser(id);
-    //   }
+    async deleteUser(id: number) {
+        return this.userRepository.deleteUser(id);
+    }
 
 }

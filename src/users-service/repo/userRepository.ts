@@ -1,13 +1,16 @@
-import { AppDataSource } from '../../config/databaseConfig';
+import { generateToken } from '../../middlewares/jwtConfig';
+import { AppDataSource } from '../config/databaseConfig';
 import { User } from '../models/User';
 
 export class UserRepository {
     private userRepository = AppDataSource.getRepository(User);
     async createUser(data: any): Promise<any> {
         try {
-            console.log("data1", data)
-            this.userRepository.save(data)
-            return { statusCode: 200, message: "Register successfully.", status: "success"};
+            let savedUser = await this.userRepository.save(data)
+            const token = generateToken({ id: savedUser.id, email: data.email });
+            savedUser.jwtToken = token;
+            await this.userRepository.save(savedUser);
+            return { statusCode: 200, message: "Register successfully.", status: "success" };
         } catch (error) {
             console.error('Error creating question:', error);
             throw error;
@@ -17,22 +20,32 @@ export class UserRepository {
 
     async checkEmailOrMobileExists(email: any, mobile: any): Promise<any> {
         const existingUser = await this.userRepository.findOne({
-          where: [
-              { email: email },
-              { mobile: mobile }
+            where: [
+                { email: email },
+                { mobile: mobile }
             ]
         });
-        
         const exists = !!existingUser;
         const message = "Email or mobile already exists.";
         const status = "error";
         return { exists, message, status, data: {} };
-      }
+    }
 
 
-    async findByEmailAndPassword(email: string, password: string): Promise<any | null> {
-        let existsUser = await this.userRepository.findOne({ where: { email, password } });
-        return existsUser !== null ? { statusCode: 200, message: "Login successfully.", status: "success", data: existsUser}: { statusCode: 401, message: "Invalid email or password", status: "failed"};
+    async findByEmail(email: string): Promise<any | null> {
+        return await this.userRepository.findOneBy({ email });
+    }
+
+    async findByEmailAndPassword( jwtToken: string): Promise<any | null> {
+        let existsUser = await this.userRepository.findOneBy({jwtToken});
+        console.log("existsUser", existsUser)
+        return existsUser !== null ? { statusCode: 200, message: "Login successfully.", status: "success", data: existsUser } : { statusCode: 401, message: "Invalid email or password", status: "failed" };
+    }
+
+
+    async UpdateTokenEmailAndPassword(id: number,jwtToken: string): Promise<any | null> {
+        let existsUser = await this.userRepository.update({id: id }, { jwtToken })
+        return existsUser !== null ? { statusCode: 200, message: "Login successfully.", status: "success", data: existsUser } : { statusCode: 401, message: "Invalid email or password", status: "failed" };
     }
     //   private userRepository = AppDataSource.getRepository(user);
 

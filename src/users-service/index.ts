@@ -1,7 +1,11 @@
 import express from 'express';
 import 'reflect-metadata';
-import { AppDataSource } from '../config/databaseConfig';
+import { AppDataSource } from './config/databaseConfig';
 import userRoutes from './routes/userRoutes';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const app = express();
 app.use(express.json());

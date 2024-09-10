@@ -74,4 +74,18 @@ export class UserRepository {
         const result = await this.userRepository.delete(id);
         return (result.affected ?? 0) > 0;
     }
+
+    async findByResetToken(token: string): Promise<User | null> {
+        return this.userRepository.findOne({ where: { jwtToken: token } });
+    }
+
+    async sendPasswordLink(user: any): Promise<any> {
+        await this.userRepository.save(user);
+        return { statusCode: 200, message: "Reset password has been sent successfully on your mailId.", status: "success" }
+    }
+
+    async findByResetTokenSave(user: any): Promise<any> {
+         this.userRepository.save(user);
+         return { statusCode: 200, message: "Password successfully reset", status: "success" }
+    }
 }

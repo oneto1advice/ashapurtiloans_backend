@@ -73,3 +73,29 @@ export const deleteUser = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+export const sendResetLink = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const link = await userService.sendResetPasswordLink(email);
+    res.status(200).json(link);
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
+
+export const passwordResetWithToken = async (req: Request, res: Response) => {
+    try {
+        const { token } = req.params;
+        const { newPassword } = req.body;
+        const link = await userService.resetPassword(token, newPassword);
+        res.status(200).json(link);
+        //res.status(200).json({ message: 'Password successfully reset' });
+    } catch (error: any) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+

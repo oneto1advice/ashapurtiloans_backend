@@ -39,11 +39,18 @@ export class AlertUser1725864220375 implements MigrationInterface {
         //     default: false,
         // }));
 
+        // await queryRunner.addColumn('user', new TableColumn({
+        //     name: 'jwtToken',
+        //     type: 'varchar',
+        //     length: '255',
+        //     isNullable: true,
+        //   }));
+
         await queryRunner.addColumn('user', new TableColumn({
-            name: 'jwtToken',
+            name: 'status',
             type: 'varchar',
-            length: '255',
-            isNullable: true,
+            length: '1',
+            default: 1,
           }));
     }
 
@@ -53,6 +60,7 @@ export class AlertUser1725864220375 implements MigrationInterface {
         //  await queryRunner.dropColumn('user', 'createdAt');
         //  await queryRunner.dropColumn('user', 'updatedAt');
         //  await queryRunner.dropColumn('user', 'isVerified');
-        await queryRunner.dropColumn('users', 'jwtToken');
+        // await queryRunner.dropColumn('users', 'jwtToken');
+        await queryRunner.dropColumn('users', 'status');
     }
 }

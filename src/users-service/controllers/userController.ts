@@ -99,3 +99,17 @@ export const passwordResetWithToken = async (req: Request, res: Response) => {
 }
 
 
+export const disableAccount = async (req: Request, res: Response) => {
+  try {
+      const { id } = req.params;
+      const { status } = req.body;
+      const disable = await userService.disableAccount(+id, status);
+      res.status(200).json(disable);
+      //res.status(200).json({ message: 'Password successfully reset' });
+  } catch (error: any) {
+      res.status(400).json({ message: error.message });
+  }
+}
+
+
+

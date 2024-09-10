@@ -46,4 +46,7 @@ export class User {
 
   @CreateDateColumn({ type: 'timestamp', default: 'CURRENT_TIMESTAMP' })
   createdAt: Date | undefined;
+
+  @Column({ type: 'varchar', length: 1, default: 1 })
+  status: number | undefined;
 }

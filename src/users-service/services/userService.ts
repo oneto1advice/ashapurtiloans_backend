@@ -28,6 +28,9 @@ export class UserService {
     async loginByEmailAndPassword(email: string, password: string): Promise<any | null> {
         const user = await this.userRepository.findByEmail(email);
         if (user === null) return { statusCode: 401, message: "User not Found", status: "failed" };
+        console.log(user)
+        console.log(user.status)
+        if(user.status == 0) return { statusCode: 401, message: "Your account is disable. Please talk to Ashapurti Loans team", status: "failed" };
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return { statusCode: 401, message: "Password not match", status: "failed" };
         if (user.jwtToken) {
@@ -96,6 +99,16 @@ export class UserService {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         user.password = hashedPassword; // You should hash the password here using bcrypt
         return await this.userRepository.findByResetTokenSave(user)
+    }
+
+
+    async disableAccount(id: number, status: string){
+        const user = await this.userRepository.findByUserId(id);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        user.status = status;
+        return await this.userRepository.findByUserIdSave(user)
     }
 
 

@@ -79,13 +79,26 @@ export class UserRepository {
         return this.userRepository.findOne({ where: { jwtToken: token } });
     }
 
+    async findByUserId(id: number): Promise<any | null> {
+        return this.userRepository.findOne({ where: { id: id } });
+    }
+
+    
+
     async sendPasswordLink(user: any): Promise<any> {
         await this.userRepository.save(user);
         return { statusCode: 200, message: "Reset password has been sent successfully on your mailId.", status: "success" }
     }
 
     async findByResetTokenSave(user: any): Promise<any> {
-         this.userRepository.save(user);
+         await this.userRepository.save(user);
          return { statusCode: 200, message: "Password successfully reset", status: "success" }
     }
+
+    async findByUserIdSave(user: any): Promise<any> {
+       let disabeAccount = await this.userRepository.save(user);
+       console.log(disabeAccount)
+       return disabeAccount.status === 1 ? { statusCode: 200, message: "Account successfully Active", status: "success" }: { statusCode: 200, message: "Account successfully delete", status: "success" }
+       
+   }
 }

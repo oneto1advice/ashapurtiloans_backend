@@ -81,7 +81,7 @@ export const sendResetLink = async (req: Request, res: Response) => {
     const link = await userService.sendResetPasswordLink(email);
     res.status(200).json(link);
   } catch (error: any) {
-    res.status(400).json({ message: error.message });
+    res.status(200).json({ message: error.message });
   }
 }
 

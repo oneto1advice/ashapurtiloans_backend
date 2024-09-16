@@ -41,11 +41,13 @@ export class User {
   @Column({type: 'boolean', default: false })
   isVerified: boolean | undefined;
 
-  @UpdateDateColumn({ type: 'timestamp', default: 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date | undefined;
+
+  
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date | undefined;
 
-  @CreateDateColumn({ type: 'timestamp', default: 'CURRENT_TIMESTAMP' })
-  createdAt: Date | undefined;
 
   @Column({ type: 'varchar', length: 1, default: 1 })
   status: number | undefined;

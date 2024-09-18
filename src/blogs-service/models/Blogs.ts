@@ -52,9 +52,17 @@ export class Category {
   
     @Column({ type: 'varchar', length: 10 })
     reading_time: number | undefined;
-
+    
+    @UpdateDateColumn({ type: 'timestamp' })
+    updatedAt: Date | undefined;
+  
+    @CreateDateColumn({ type: 'timestamp' })
+    createdAt: Date | undefined;
+    
     @ManyToMany(() => Blogs, (blog) => blog.categories)
     blogs: Blogs[] | undefined;
+
+
 }
 
 
@@ -75,7 +83,13 @@ export class Tag {
   
     @Column({ type: 'varchar', length: 10 })
     reading_time: number | undefined;
-
+     
+    @UpdateDateColumn({ type: 'timestamp' })
+    updatedAt: Date | undefined;
+  
+    @CreateDateColumn({ type: 'timestamp' })
+    createdAt: Date | undefined;
+    
     @ManyToMany(() => Blogs, (blog) => blog.tags)
     blogs: Blogs[] | undefined;
 }

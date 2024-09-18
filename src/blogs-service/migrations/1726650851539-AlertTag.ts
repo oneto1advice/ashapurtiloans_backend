@@ -20,7 +20,6 @@ export class AlertTag1726650851539 implements MigrationInterface {
         //     type: 'varchar',
         //     length: '10'
         // }));
-
         await queryRunner.renameColumn('tags', 'name', 'title');
     }
 

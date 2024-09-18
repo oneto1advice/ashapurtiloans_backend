@@ -46,12 +46,19 @@ export class AlertLoan1726150550160 implements MigrationInterface {
         //     isNullable: true,
         //   }));
 
-        await queryRunner.addColumn('loans', new TableColumn({
-            name: 'status',
-            type: 'varchar',
-            length: '1',
-            default: 1,
-          }));
+        // await queryRunner.addColumn('loans', new TableColumn({
+        //     name: 'minTimeLoanTenure',
+        //     type: 'varchar',
+        //     length: '10',
+        //     default: null
+        //   }));
+
+        //   await queryRunner.addColumn('loans', new TableColumn({
+        //     name: 'maxTimeLoanTenure',
+        //     type: 'varchar',
+        //     length: '10',
+        //     default: null
+        //   }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
@@ -61,7 +68,8 @@ export class AlertLoan1726150550160 implements MigrationInterface {
         //  await queryRunner.dropColumn('user', 'updatedAt');
         //  await queryRunner.dropColumn('user', 'isVerified');
         // await queryRunner.dropColumn('users', 'jwtToken');
-        await queryRunner.dropColumn('loans', 'status');
+        // await queryRunner.dropColumn('loans', 'minTimeLoanTenure');
+        // await queryRunner.dropColumn('loans', 'maxTimeLoanTenure');
     }
 
 }

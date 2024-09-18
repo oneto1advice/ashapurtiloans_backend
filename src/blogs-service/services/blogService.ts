@@ -1,36 +1,36 @@
-import { LoanRepository } from '../repo/blogRepository';
+import { BlogRepository } from '../repo/blogRepository';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 dotenv.config();
-export class LoanService {
+export class BlogService {
 
-    private loanRepository = new LoanRepository();
-    async createLoan(data: any) {
-        const newLoan = await this.loanRepository.createLoan(data);
-        return newLoan;
+    private blogRepository = new BlogRepository();
+    async createBlog(data: any) {
+        const newBlog = await this.blogRepository.createBlog(data);
+        return newBlog;
     }
 
-    async getAllLoans() {
-        return this.loanRepository.findAllLoans();
+    async getAllBlogs() {
+        return this.blogRepository.findAllBlogs();
     }
 
-    async getLoanById(id: number) {
-        return this.loanRepository.findLoanById(id);
+    async getBlogById(id: number) {
+        return this.blogRepository.findBlogById(id);
     }
 
-    async updateLoan(id: number, body: string) {
-         return this.loanRepository.updateLoan(id, body);
+    async updateBlog(id: number, body: string) {
+         return this.blogRepository.updateBlog(id, body);
     }
 
-    async deleteLoan(id: number) {
-        return this.loanRepository.deleteLoan(id);
+    async deleteBlog(id: number) {
+        return this.blogRepository.deleteBlog(id);
     }
 
 
     // async sendResetPasswordLink(email: string) {
-    //     const user = await this.loanRepository.findByEmail(email);
+    //     const user = await this.blogRepository.findByEmail(email);
     //     if (!user) {
     //         throw new Error('User not found');
     //     }
@@ -51,11 +51,11 @@ export class LoanService {
     //     const mailOptions = {
     //         to: user.email,
     //         from: process.env.GMAILNODEMAILER_USER,
-    //         subject: 'AshaPurtiLoans Reset Password Link',
+    //         subject: 'AshaPurtiBlogs Reset Password Link',
     //         text: `You are receiving this because you have requested to reset your password. Please click the following link: \n\nhttp://localhost:3000/api/password-reset/${token}`,
     //     };
     //     await transporter.sendMail(mailOptions);
-    //     return  await this.loanRepository.sendLoanLink(user);
+    //     return  await this.blogRepository.sendBlogLink(user);
     // }
 
 

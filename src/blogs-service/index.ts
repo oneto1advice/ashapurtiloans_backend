@@ -16,8 +16,8 @@ AppDataSource.initialize()
     console.log('Database connected');
     app.use('/api', blogsRoutes);
     // Start the server
-    app.listen(3000,'0.0.0.0', () => {
-      console.log('Server is running on http://localhost:3000');
+    app.listen(3001,'0.0.0.0', () => {
+      console.log('Server is running on http://localhost:3001');
     });
   })
   .catch((error: any) => console.error('Database connection error:', error));

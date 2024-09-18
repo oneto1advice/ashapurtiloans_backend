@@ -11,18 +11,22 @@
 
     "build:users": "tsc --project tsconfig.json",
     "build:loans": "tsc --project tsconfig.json",
+    "build:blogs": "tsc --project tsconfig.json",
   
     "start:users": "node dist/users-service/index.ts",
     "start:loans": "node dist/loans-service/index.ts",
+    "start:blogs": "node dist/blogs-service/index.ts",
 
 
     "dev:users": "ts-node src/users-service/index.ts",
     "dev:loans": "ts-node src/loans-service/index.ts",
+    "dev:blogs": "ts-node src/blogs-service/index.ts",
 
 
-    "dev:all": "concurrently \"npm run dev:users\" \"npm run dev:loans\"",
-    "build:all": "npm run build:users && npm run build:loans",
-    "start:all": "npm run start:users && npm run start:loans"
+
+    "dev:all": "concurrently \"npm run dev:users\" \"npm run dev:loans\" \"npm run dev:blogs\"",
+    "build:all": "npm run build:users && npm run build:loans && npm run build:blogs",
+    "start:all": "npm run start:users && npm run start:loans && npm run start:blogs"
   },
   "author": "sunder",
   "license": "ISC",

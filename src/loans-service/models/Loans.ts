@@ -23,6 +23,12 @@ export class Loans {
   @Column({ type: 'varchar', length: 255 })
   description: string | undefined;
 
+  @Column({ type: 'varchar', length: 255, default: null })
+  minTimeLoanTenure: string | undefined;
+
+  @Column({ type: 'varchar', length: 255, default: null })
+  maxTimeLoanTenure: string | undefined;
+
   @Column('simple-array')
   particulars: string[] | undefined;
 

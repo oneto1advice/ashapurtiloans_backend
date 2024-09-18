@@ -1,61 +1,63 @@
 import { Request, Response } from 'express';
-import { LoanService } from '../services/blogService';
+import { BlogService } from '../services/blogService';
 
-const loanService = new LoanService();
-export const createLoan = async (req: Request, res: Response) => {
+const blogService = new BlogService();
+export const createBlog = async (req: Request, res: Response) => {
   try {
-    const user = await loanService.createLoan(req.body);
-    res.status(200).json(user);
+    const blog = await blogService.createBlog(req.body);
+    res.status(200).json(blog);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
 };
 
-export const getAllLoans = async (_req: Request, res: Response) => {
+
+
+export const getAllBlogs = async (req: Request, res: Response) => {
   try {
-    const users = await loanService.getAllLoans();
+    const users = await blogService.getAllBlogs();
     res.json(users);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
 };
 
-export const getLoanById = async (req: Request, res: Response) => {
+export const getBlogById = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const user = await loanService.getLoanById(Number(id));
+    const user = await blogService.getBlogById(Number(id));
     if (user) {
       res.json(user);
     } else {
-      res.status(404).json({ message: 'Loan not found' });
+      res.status(404).json({ message: 'Blog not found' });
     }
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
 };
 
-export const updateLoan = async (req: Request, res: Response) => {
+export const updateBlog = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const loan = await loanService.updateLoan(Number(id), req.body);
-    if (loan) {
-      res.json({status: 200, message: 'Loan data found', data: loan });
+    const Blog = await blogService.updateBlog(Number(id), req.body);
+    if (Blog) {
+      res.json({status: 200, message: 'Blog data found', data: Blog });
     } else {
-      res.json({status: 404, message: 'Loan not found' });
+      res.json({status: 404, message: 'Blog not found' });
     }
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
 };
 
-export const deleteLoan = async (req: Request, res: Response) => {
+export const deleteBlog = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const success = await loanService.deleteLoan(Number(id));
+    const success = await blogService.deleteBlog(Number(id));
     if (success) {
-      res.json({status: 200, message: 'Loan data delete successfully'});
+      res.json({status: 200, message: 'Blog data delete successfully'});
     } else {
-      res.json({status: 404, message: 'Loan not found' });
+      res.json({status: 404, message: 'Blog not found' });
     }
   } catch (error: any) {
     res.status(500).json({ error: error.message });

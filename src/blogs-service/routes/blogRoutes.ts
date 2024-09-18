@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import {
-  createLoan,
-  getLoanById,
-  getAllLoans,
-  updateLoan,
-  deleteLoan,
+  createBlog,
+  getBlogById,
+  getAllBlogs,
+  updateBlog,
+  deleteBlog,
 } from '../controllers/blogController';
 
 const router = Router();
 
-router.post('/create', createLoan);
-router.get('/blogs', getAllLoans);
-router.get('/blogs/:id', getLoanById);
-router.put('/blogs/:id', updateLoan);
-router.delete('/blogs/:id', deleteLoan);
+router.post('/blogs', createBlog);
+router.get('/blogs', getAllBlogs);
+router.get('/blogs/:id', getBlogById);
+router.put('/blogs/:id', updateBlog);
+router.delete('/blogs/:id', deleteBlog);
 
 export default router;

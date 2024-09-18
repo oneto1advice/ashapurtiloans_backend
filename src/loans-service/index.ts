@@ -16,8 +16,8 @@ AppDataSource.initialize()
     console.log('Database connected');
     app.use('/api', loansRoutes);
     // Start the server
-    app.listen(3000,'0.0.0.0', () => {
-      console.log('Server is running on http://localhost:3000');
+    app.listen(3002,'0.0.0.0', () => {
+      console.log('Server is running on http://localhost:3002');
     });
   })
   .catch((error) => console.error('Database connection error:', error));

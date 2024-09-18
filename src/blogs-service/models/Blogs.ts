@@ -42,7 +42,16 @@ export class Category {
     id: number | undefined;
 
     @Column({ type: 'varchar', length: 255 })
-    name: string | undefined;
+    title: string | undefined;
+
+    @Column({ type: 'varchar', length: 255 })
+    description: string | undefined;
+   
+    @Column({ type: 'varchar', length: 255 })
+    author: string | undefined;
+  
+    @Column({ type: 'varchar', length: 10 })
+    reading_time: number | undefined;
 
     @ManyToMany(() => Blogs, (blog) => blog.categories)
     blogs: Blogs[] | undefined;
@@ -56,7 +65,16 @@ export class Tag {
     id: number | undefined;
 
     @Column({ type: 'varchar', length: 255 })
-    name: string | undefined;
+    title: string | undefined;
+
+    @Column({ type: 'varchar', length: 255 })
+    description: string | undefined;
+   
+    @Column({ type: 'varchar', length: 255 })
+    author: string | undefined;
+  
+    @Column({ type: 'varchar', length: 10 })
+    reading_time: number | undefined;
 
     @ManyToMany(() => Blogs, (blog) => blog.tags)
     blogs: Blogs[] | undefined;
